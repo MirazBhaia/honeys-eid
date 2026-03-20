@@ -17,7 +17,7 @@
 
 body {
     height: 100vh;
-    background: radial-gradient(circle at top, #1a1a1a, #0a0a0a 70%);
+    background: radial-gradient(circle at top, #1a1a1a, #050505 75%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -30,7 +30,6 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    overflow: hidden;
 }
 
 .star {
@@ -44,34 +43,35 @@ body {
 
 @keyframes twinkle {
     0%,100% { opacity: 0.2; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.8); }
+    50% { opacity: 1; transform: scale(1.6); }
 }
 
-/* 🌙 Crescent Moon */
+/* 🌙 PERFECT CRESCENT */
 .moon {
     position: absolute;
-    top: 80px;
-    right: 120px;
-    width: 140px;
-    height: 140px;
-    background: #f1f1f1;
+    top: 70px;
+    right: 100px;
+    width: 130px;
+    height: 130px;
     border-radius: 50%;
-    box-shadow: 0 0 60px rgba(255,255,255,0.25);
-    transform: rotate(-30deg);
+    background: radial-gradient(circle at 35% 35%, #ffffff, #dcdcdc 70%);
+    box-shadow: 0 0 50px rgba(255,255,255,0.15);
+    transform: rotate(-35deg);
+    overflow: hidden;
 }
 
 .moon::after {
     content: "";
     position: absolute;
-    top: 0;
-    left: 40px;
-    width: 140px;
-    height: 140px;
-    background: #0a0a0a;
+    top: -20px;
+    left: 60px;
+    width: 130px;
+    height: 130px;
+    background: #050505;
     border-radius: 50%;
 }
 
-/* ✨ Center Content */
+/* ✨ Content */
 .container {
     text-align: center;
     z-index: 2;
@@ -80,7 +80,7 @@ body {
 /* Button */
 button {
     padding: 14px 32px;
-    background: rgba(255,255,255,0.05);
+    background: rgba(255,255,255,0.06);
     border: 1px solid rgba(255,255,255,0.2);
     color: #fff;
     border-radius: 999px;
@@ -101,14 +101,14 @@ button:hover {
 .card {
     margin-top: 25px;
     width: 320px;
-    padding: 28px;
-    background: rgba(255,255,255,0.06);
-    backdrop-filter: blur(20px);
+    padding: 26px;
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(18px);
     border-radius: 24px;
     text-align: center;
     opacity: 0;
     transform: translateY(40px) scale(0.95);
-    transition: all 0.6s cubic-bezier(.2,.8,.2,1);
+    transition: all 0.5s ease;
     box-shadow: 0 20px 60px rgba(0,0,0,0.5);
 }
 
@@ -118,8 +118,8 @@ button:hover {
 }
 
 .card h1 {
-    font-size: 22px;
-    margin-bottom: 16px;
+    font-size: 21px;
+    margin-bottom: 14px;
     font-weight: 600;
 }
 
@@ -130,9 +130,14 @@ button:hover {
     margin-bottom: 10px;
 }
 
-/* Subtle fade-in on load */
+/* Prevent ugly line breaks */
+.no-break {
+    white-space: nowrap;
+}
+
+/* Fade in */
 .fade-in {
-    animation: fade 1.5s ease forwards;
+    animation: fade 1.2s ease forwards;
     opacity: 0;
 }
 
@@ -149,24 +154,37 @@ button:hover {
 <div class="moon"></div>
 
 <div class="container fade-in">
-    <button onclick="showCard()">Touch Me</button>
+    <button onclick="toggleCard()" id="btn">Touch Me</button>
 
     <div class="card" id="card">
         <h1>Eid Mubarak, Honey 🖤</h1>
         <p>I felt, 50 tk salami is cute but not enough. So, here we are!</p>
-        <p>Another eid without you, Next Eid-ul-Fitr... no distance. Deal?</p>
+        <p>
+            Another eid without you,
+            <span class="no-break">Next Eid-ul-Fitr... no distance.</span>
+            Deal?
+        </p>
     </div>
 </div>
 
 <script>
-function showCard() {
-    document.getElementById("card").classList.add("show");
+const card = document.getElementById("card");
+const btn = document.getElementById("btn");
+
+function toggleCard() {
+    card.classList.toggle("show");
+
+    if (card.classList.contains("show")) {
+        btn.innerText = "Close";
+    } else {
+        btn.innerText = "Touch Me";
+    }
 }
 
-/* Generate random stars */
+/* Stars generator */
 const starsContainer = document.getElementById("stars");
 
-for (let i = 0; i < 80; i++) {
+for (let i = 0; i < 90; i++) {
     let star = document.createElement("div");
     star.className = "star";
     star.style.top = Math.random() * 100 + "%";
